@@ -1,6 +1,7 @@
 package com.alienpants.leafpicrevived2.activities;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -17,6 +18,7 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.ImageView;
 
+import com.alienpants.leafpicrevived2.MyActivityManager;
 import com.alienpants.leafpicrevived2.R;
 
 
@@ -60,6 +62,10 @@ public class AffixActivity extends Activity implements OnClickListener {
 
         choosePicture1.setOnClickListener(this);
         choosePicture2.setOnClickListener(this);
+
+        MyActivityManager myManager = new MyActivityManager();
+        Context myContext = this;
+        myManager.checkBatteryStatus(myContext);
 
 
     }

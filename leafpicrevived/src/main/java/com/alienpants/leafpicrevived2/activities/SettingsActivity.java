@@ -16,6 +16,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.ContextCompat;
 
+import com.alienpants.leafpicrevived2.MyActivityManager;
 import com.mikepenz.iconics.typeface.library.googlematerial.GoogleMaterial;
 import com.orhanobut.hawk.Hawk;
 
@@ -43,6 +44,7 @@ public class SettingsActivity extends BaseActivity {
     private Toolbar toolbar;
 
     @BindView(R.id.option_max_brightness) SettingWithSwitchView optionMaxBrightness;
+    @BindView(R.id.option_low_power_mode) SettingWithSwitchView optionLowPowerMode;
     @BindView(R.id.option_picture_orientation) SettingWithSwitchView optionOrientation;
     @BindView(R.id.option_full_resolution) SettingWithSwitchView optionDelayFullRes;
 
@@ -103,6 +105,10 @@ public class SettingsActivity extends BaseActivity {
         ScrollView scrollView = findViewById(R.id.settingAct_scrollView);
         setScrollViewColor(scrollView);
         setTitle(R.string.settings);
+
+        MyActivityManager myManager = new MyActivityManager();
+        Context myContext = this;
+        myManager.checkBatteryStatus(myContext);
     }
 
     @Override

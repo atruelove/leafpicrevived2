@@ -22,6 +22,7 @@ import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
 
 import com.alienpants.leafpicrevived2.LookForMediaJob;
+import com.alienpants.leafpicrevived2.MyActivityManager;
 import com.alienpants.leafpicrevived2.R;
 import com.alienpants.leafpicrevived2.activities.base.SharedMediaActivity;
 import com.alienpants.leafpicrevived2.util.PermissionUtils;
@@ -59,6 +60,10 @@ public class SplashScreen extends SharedMediaActivity {
         //App newApp = new App();
         //Prefs.init(newApp);
         setContentView(com.alienpants.leafpicrevived2.R.layout.activity_splash);
+
+        MyActivityManager myManager = new MyActivityManager();
+        Context myContext = this;
+        myManager.checkBatteryStatus(myContext);
 
 
         getWindow().getDecorView().setSystemUiVisibility(

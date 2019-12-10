@@ -42,6 +42,7 @@ import androidx.annotation.CallSuper;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.ContextCompat;
 
+import com.alienpants.leafpicrevived2.MyActivityManager;
 import com.google.android.exoplayer2.C;
 import com.google.android.exoplayer2.DefaultRenderersFactory;
 import com.google.android.exoplayer2.ExoPlaybackException;
@@ -148,6 +149,10 @@ public class PlayerActivity extends BaseActivity implements CustomPlayBackContro
         simpleExoPlayerView = findViewById(R.id.player_view);
         simpleExoPlayerView.setControllerVisibilityListener(this);
         simpleExoPlayerView.requestFocus();
+
+        MyActivityManager myManager = new MyActivityManager();
+        Context myContext = this;
+        myManager.checkBatteryStatus(myContext);
     }
 
     @Override

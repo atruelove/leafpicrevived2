@@ -39,6 +39,7 @@ import androidx.fragment.app.Fragment;
 import androidx.print.PrintHelper;
 import androidx.viewpager.widget.ViewPager;
 
+import com.alienpants.leafpicrevived2.MyActivityManager;
 import com.alienpants.leafpicrevived2.R;
 import com.alienpants.leafpicrevived2.SelectAlbumBuilder;
 import com.alienpants.leafpicrevived2.activities.base.SharedMediaActivity;
@@ -122,6 +123,7 @@ public class SingleMediaActivity extends SharedMediaActivity implements BaseMedi
     private boolean isSlideShowOn = false;
 
     private boolean useImageMenu;
+    private MyActivityManager myManager;// = new MyActivityManager();
 
     public static void startActivity(@NonNull Context context,
                                      @Nullable Parcelable album,
@@ -141,6 +143,10 @@ public class SingleMediaActivity extends SharedMediaActivity implements BaseMedi
         super.onCreate(savedInstanceState);
 
         Iconics.init(this);
+
+        myManager = new MyActivityManager();
+        Context myContext = this;
+        myManager.checkBatteryStatus(myContext);
 
         setContentView(R.layout.activity_single_media);
 
@@ -516,19 +522,36 @@ public class SingleMediaActivity extends SharedMediaActivity implements BaseMedi
         ((ImageFragment) mediaFragment).rotatePicture(rotationDegree);
     }
 
+    public void managerBlock() {
+        Context alertContext = this;
+        myManager.lowPowerBlock(alertContext);
+    }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
 
             case R.id.rotate_180:
+                if (myManager.getLowPower() == true) {
+                    managerBlock();
+                    break;
+                }
                 rotateImage(180);
                 break;
 
             case R.id.rotate_right_90:
+                if (myManager.getLowPower() == true) {
+                    managerBlock();
+                    break;
+                }
                 rotateImage(90);
                 break;
 
             case R.id.rotate_left_90:
+                if (myManager.getLowPower() == true) {
+                    managerBlock();
+                    break;
+                }
                 rotateImage(-90);
                 break;
 
@@ -546,6 +569,11 @@ public class SingleMediaActivity extends SharedMediaActivity implements BaseMedi
                 break;
 
             case R.id.action_share:
+                if (myManager.getLowPower() == true) {
+                    managerBlock();
+                    return true;
+                }
+
                 // TODO: 16/10/17 check if it works everywhere
                 Intent share = new Intent(Intent.ACTION_SEND);
                 share.setType(getCurrentMedia().getMimeType());
@@ -556,6 +584,10 @@ public class SingleMediaActivity extends SharedMediaActivity implements BaseMedi
                 return true;
 
             case R.id.action_edit:
+                if (myManager.getLowPower() == true) {
+                    managerBlock();
+                    return true;
+                }
                 // TODO: 16/10/17 redo
                 Uri mDestinationUri = Uri.fromFile(new File(getCacheDir(), "croppedImage.png"));
                 Uri uri = Uri.fromFile(new File(getCurrentMedia().getPath()));
@@ -565,6 +597,10 @@ public class SingleMediaActivity extends SharedMediaActivity implements BaseMedi
                 break;
 
             case R.id.action_use_as:
+                if (myManager.getLowPower() == true) {
+                    managerBlock();
+                    return true;
+                }
                 Intent intent = new Intent(Intent.ACTION_ATTACH_DATA);
                 intent.setDataAndType(LegacyCompatFileProvider.getUri(this,
                         getCurrentMedia().getFile()), getCurrentMedia().getMimeType());
@@ -661,6 +697,10 @@ public class SingleMediaActivity extends SharedMediaActivity implements BaseMedi
                 break;
 
             case R.id.action_edit_with:
+                if (myManager.getLowPower() == true) {
+                    managerBlock();
+                    break;
+                }
                 Intent editIntent = new Intent(Intent.ACTION_EDIT);
                 editIntent.setDataAndType(LegacyCompatFileProvider.getUri(this,
                         getCurrentMedia().getFile()), getCurrentMedia().getMimeType());
@@ -689,6 +729,10 @@ public class SingleMediaActivity extends SharedMediaActivity implements BaseMedi
                 break;
 
             case R.id.action_palette:
+                if (myManager.getLowPower() == true) {
+                    managerBlock();
+                    break;
+                }
 
                 Context context = this;
                 SplitInstallManager splitInstallManager = SplitInstallManagerFactory.create(context);
@@ -737,6 +781,10 @@ public class SingleMediaActivity extends SharedMediaActivity implements BaseMedi
                 break;
 
             case R.id.action_print:
+                if (myManager.getLowPower() == true) {
+                    managerBlock();
+                    break;
+                }
                 PrintHelper photoPrinter = new PrintHelper(this);
                 photoPrinter.setScaleMode(PrintHelper.SCALE_MODE_FIT);
                 try (InputStream in = getContentResolver().openInputStream(getCurrentMedia().getUri())) {
@@ -749,6 +797,10 @@ public class SingleMediaActivity extends SharedMediaActivity implements BaseMedi
                 break;
 
             case R.id.action_advanced_sharing:
+                if (myManager.getLowPower() == true) {
+                    managerBlock();
+                    break;
+                }
                 File actualImage = getCurrentMedia().getFile();
                 BitmapFactory.Options bitmapFactoryOptions = new BitmapFactory.Options();
                 bitmapFactoryOptions.inJustDecodeBounds = true;
@@ -775,6 +827,10 @@ public class SingleMediaActivity extends SharedMediaActivity implements BaseMedi
 
 
             case R.id.slide_show:
+                if (myManager.getLowPower() == true) {
+                    managerBlock();
+                    break;
+                }
                 isSlideShowOn = !isSlideShowOn;
                 if (isSlideShowOn) {
                     handler.postDelayed(slideShowRunnable, SLIDE_SHOW_INTERVAL);

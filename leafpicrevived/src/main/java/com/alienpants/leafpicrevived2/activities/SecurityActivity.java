@@ -1,5 +1,6 @@
 package com.alienpants.leafpicrevived2.activities;
 
+import android.content.Context;
 import android.content.DialogInterface;
 import android.graphics.PorterDuff;
 import android.os.Build;
@@ -17,6 +18,7 @@ import androidx.appcompat.widget.SwitchCompat;
 import androidx.appcompat.widget.Toolbar;
 import androidx.cardview.widget.CardView;
 
+import com.alienpants.leafpicrevived2.MyActivityManager;
 import com.mikepenz.iconics.typeface.library.googlematerial.GoogleMaterial;
 import com.orhanobut.hawk.Hawk;
 
@@ -54,6 +56,10 @@ public class SecurityActivity extends BaseActivity {
         swApplySecurityHidden = (SwitchCompat) findViewById(R.id.security_body_apply_hidden_switch);
         swFingerPrint = (SwitchCompat) findViewById(R.id.active_security_fingerprint_switch);
         llFingerprint = (LinearLayout) findViewById(R.id.ll_active_security_fingerprint);
+
+        MyActivityManager myManager = new MyActivityManager();
+        Context myContext = this;
+        myManager.checkBatteryStatus(myContext);
 
         initUi();
         setTitle(R.string.security);

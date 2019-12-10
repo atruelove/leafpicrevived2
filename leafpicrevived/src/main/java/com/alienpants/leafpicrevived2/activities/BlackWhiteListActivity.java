@@ -1,5 +1,6 @@
 package com.alienpants.leafpicrevived2.activities;
 
+import android.content.Context;
 import android.os.Bundle;
 
 
@@ -20,6 +21,7 @@ import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.alienpants.leafpicrevived2.MyActivityManager;
 import com.alienpants.leafpicrevived2.R;
 import com.alienpants.leafpicrevived2.SelectAlbumBuilder;
 import com.alienpants.leafpicrevived2.activities.base.SharedMediaActivity;
@@ -58,6 +60,10 @@ public class BlackWhiteListActivity extends SharedMediaActivity {
         mRecyclerView = findViewById(R.id.excluded_albums);
         initUi();
         loadFolders(getIntent().getIntExtra(EXTRA_TYPE, HandlingAlbums.EXCLUDED));
+
+        MyActivityManager myManager = new MyActivityManager();
+        Context myContext = this;
+        myManager.checkBatteryStatus(myContext);
     }
 
     private void loadFolders(int type) {

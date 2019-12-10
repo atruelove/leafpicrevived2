@@ -1,6 +1,8 @@
 package com.alienpants.leafpicrevived2.activities;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.res.ColorStateList;
 import android.content.res.Configuration;
 import android.graphics.Color;
@@ -29,6 +31,7 @@ import androidx.core.content.ContextCompat;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
+import com.alienpants.leafpicrevived2.MyActivityManager;
 import com.alienpants.leafpicrevived2.views.navigation_drawer.NavigationDrawer;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
@@ -117,6 +120,10 @@ public class MainActivity extends SharedMediaActivity implements
         super.onCreate(savedInstanceState);
         Iconics.init(this);
 
+        MyActivityManager myManager = new MyActivityManager();
+        Context myContext = this;
+        myManager.checkBatteryStatus(myContext);
+
         setContentView(R.layout.activity_main);
         unbinder = ButterKnife.bind(this);
 
@@ -149,6 +156,17 @@ public class MainActivity extends SharedMediaActivity implements
                 setupUiForTimeline();
         }
     }
+
+    /*
+    public void checkBatteryStatus() {
+        MyActivityManager myManager = new MyActivityManager();
+        Context context = this;
+        IntentFilter ifilter = new IntentFilter(Intent.ACTION_BATTERY_CHANGED);
+        Intent batteryStatus = context.registerReceiver(null, ifilter);
+        myManager.setBatteryStatus(batteryStatus);
+    }
+
+     */
 
     private void setContentFragment() {
         getSupportFragmentManager()

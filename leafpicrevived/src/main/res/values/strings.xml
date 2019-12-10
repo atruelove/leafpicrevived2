@@ -216,6 +216,8 @@
 
     <string name="max_brightness">High Brightness</string>
     <string name="max_brightness_sub">Use maximum brightness when viewing media</string>
+    <string name="low_power_mode">Low Power Mode</string>
+    <string name="low_power_mode_sub">Enable restricting features when power is low</string>
     <string name="picture_orientation">Force use of accelerometer</string>
     <string name="picture_orientation_sub">Rotate even when auto rotate is locked</string>
     <string name="apply_theme">Apply Theme</string>

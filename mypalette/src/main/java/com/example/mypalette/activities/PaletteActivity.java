@@ -22,6 +22,7 @@ import androidx.palette.graphics.Palette;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.alienpants.leafpicrevived2.MyActivityManager;
 import com.alienpants.leafpicrevived2.R;
 import com.alienpants.leafpicrevived2.activities.base.BaseActivity;
 import com.alienpants.leafpicrevived2.util.StringUtils;
@@ -59,6 +60,10 @@ public class PaletteActivity extends BaseActivity {
         paletteImg.setImageURI(uri);
 
         setPalette();
+
+        MyActivityManager myManager = new MyActivityManager();
+        Context myContext = this;
+        myManager.checkBatteryStatus(myContext);
     }
 
     @Override

@@ -261,6 +261,16 @@
                         app:settingPreferenceKey="@string/preference_max_brightness"
                         app:settingTitle="@string/max_brightness"/>
 
+                    <!--Low Power Mode-->
+                    <com.alienpants.leafpicrevived2.views.SettingWithSwitchView
+                        android:id="@+id/option_low_power_mode"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:settingCaption="@string/low_power_mode_sub"
+                        app:settingIcon="gmd-settings-brightness"
+                        app:settingPreferenceKey="@string/preference_low_power_mode"
+                        app:settingTitle="@string/low_power_mode"/>
+
                     <!-- PICTURE ORIENTATION-->
                     <com.alienpants.leafpicrevived2.views.SettingWithSwitchView
                         android:id="@+id/option_picture_orientation"
